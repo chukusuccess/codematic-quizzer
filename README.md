@@ -26,13 +26,13 @@ NOTE: if you use Yarn or any other package manager, delete the package-lock.json
 git clone https://github.com/chukusuccess/codematic-quizzer
 ```
 
-Clone the project
+Clone the project with the above script
 
 ```bash
 cd codematic-quizzer
 ```
 
-cd into the project directory and run:
+cd into the project directory with the above script and run:
 
 ### `npm install`
 
@@ -63,15 +63,13 @@ Builds the app for production to the `build` folder.
 
 ## Code Style and Project structure
 
-- **CircleCI:**
+- **CircleCI:** CircleCI is configured in this project
 
 ```bash
 .circleci/config.yml
 ```
 
 This file defines the CI/CD workflow.
-
-CircleCI configuration
 
 - **API and Services:** Public Trivia API [https://opentdb.com/](https://opentdb.com/).
 
@@ -129,4 +127,4 @@ src/__test__
 
 ## Deployment
 
-App is live! deployed on: view here:
+App is live! deployed on: Vercel view here: [https://codematic-quizzer.vercel.app/](https://codematic-quizzer.vercel.app/)

@@ -151,6 +151,7 @@ export const Quiz = () => {
       </h1>
       <form className="w-full flex font-normal sm:font-bold flex-col items-start justify-start gap-6">
         <div className="w-full flex flex-col items-start justify-start text-2xl">
+          <p className="font-bold">Question: {currentQuestionNumber + 1}</p>
           <p
             dangerouslySetInnerHTML={{
               __html: results[currentQuestionNumber]?.question,
