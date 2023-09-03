@@ -17,7 +17,7 @@ describe("Array Utils", () => {
 
 // TO-DO: use this util to shuffle questions and answers
 describe("Array Utils", () => {
-  it("can shuffle ordered array", () => {
+  it("can shuffle categories array", () => {
     const input1 = [1, 2, 3, 4];
     const input2 = [1, 2, 3, 4, 5];
 

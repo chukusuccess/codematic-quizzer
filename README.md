@@ -1,10 +1,42 @@
-# Getting Started with Create React App
+# Codematic Quizzer Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Codematic Quizzer is a simple quiz web app built with trivia API.
 
-## Available Scripts
+## Type of App
 
-In the project directory, you can run:
+Progressive Web App (PWA)
+
+## Development Stack:
+
+React.js, JavaScript, TailwindCSS, Framer motion.
+
+- **React.js:** For frontend Functional Components.
+- **JavaScript:** For Logic.
+- **TailwindCSS:** For styling.
+- **Framer motion:** For UI components animation.
+- **Jest:** For Testing.
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). and uses Node Package Manager version 20.
+
+NOTE: if you use Yarn or any other package manager, delete the package-lock.json file before you proceed with running scripts. Run the corresponding commands as per your own package manager.
+
+## Getting started / Available Scripts
+
+```bash
+git clone https://github.com/chukusuccess/codematic-quizzer
+```
+
+Clone the project
+
+```bash
+cd codematic-quizzer
+```
+
+cd into the project directory and run:
+
+### `npm install`
+
+Installs all dependencies.
 
 ### `npm start`
 
@@ -12,59 +44,89 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the Jest test runner in the watch mode. This means changes made in test files (all files in **test** folder) will trigger a test re-run\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information. Also look at - [Jest](https://jestjs.io/docs/getting-started) - Documentation.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Key Features of App
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Select Quiz Category:** All users can select a quiz category, difficulty level(easy/hard/medium) and number of questions (max 10).
+- **Score Calculation:** All users can be able to see their score at the end of each quiz.
+- **Restart Quiz:** All users can be able to restart a quiz at any time.
+- **PWA:** Add Codematic Quizzer to phone app screen.
 
-### `npm run eject`
+## Code Style and Project structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **CircleCI:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+.circleci/config.yml
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This file defines the CI/CD workflow.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+CircleCI configuration
 
-## Learn More
+- **API and Services:** Public Trivia API [https://opentdb.com/](https://opentdb.com/).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+src/services/api.js
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Axios API instance is initialized in the api.js file using axios.create() and the baseUrl for Trivia public API is set there.
 
-### Code Splitting
+```bash
+src/services/category.service.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. CategoryService class is created in the category.service.js file. This class holds all methods relevant to getting quiz category.
 
-### Analyzing the Bundle Size
+- **Utils:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+src/utilities/arrays.utils.js
+```
 
-### Making a Progressive Web App
+1. Array utility functions are written in this arrays.utils.js file. JSDoc comments have been added to them.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Pages:**
 
-### Advanced Configuration
+```bash
+src/pages
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. All pages are in pages folder: Categories.jsx, Home.jsx, Quiz.jsx are the main pages while Loading.jsx and Error.jsx only render during an API call (Loading.jsx) and After an API call if there is an error (Error.jsx).
 
-### Deployment
+- **Splash Screens:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+src/components/Splash-Animation
+```
 
-### `npm run build` fails to minify
+1. contains the splash / onboarding screens. The very first screens in the Quiz App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Reusable Components:**
+
+```bash
+src/components
+```
+
+1. contains other re-usable components
+
+- **Test files:**
+
+```bash
+src/__test__
+```
+
+1. contains all test files
+
+## Deployment
+
+App is live! deployed on: view here:

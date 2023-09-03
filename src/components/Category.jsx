@@ -5,28 +5,49 @@ import { Button } from "./Button";
 
 export const Category = ({ category }) => {
   // state declaration
-  const [hasSelected, setHasSelected] = useState(false);
+  const [state, setState] = useState({
+    hasSelected: false,
+    id: category?.id,
+    difficulty: "",
+    amount: 1,
+  });
 
   // useNavigate hook
   const navigate = useNavigate();
 
   // button click event handler
-  const handleClick = (item) => {
-    console.log(item);
-    setHasSelected(true);
+  const handleClick = (diff) => {
+    setState((prevState) => ({
+      ...prevState,
+      hasSelected: true,
+      difficulty: diff,
+    }));
   };
 
   // click event within modal handler
-  const handleModalClick = (str) => {
-    if (str === "close") setHasSelected(false);
-    if (str === "start") navigate("/quiz");
+  const handleModalClick = (value, amount) => {
+    if (!amount && value === "close")
+      setState((prevState) => ({ ...prevState, hasSelected: false }));
+
+    // we pass our options through Navigate Options
+    if (value !== "close" && !Number.isNaN(amount)) {
+      navigate("/quiz", {
+        state: {
+          amount: amount,
+          category: state.id,
+          difficulty: state.difficulty,
+        },
+      });
+    }
   };
 
   return (
-    <div className="w-full h-24 sm:h-32 rounded-xl bg-codematicWhite shadow-lg flex flex-col items-center justify-center sm:gap-3 px-1 sm:w-1/4 hover:border-2 border-orange-600">
-      <p className="text-lg font-semibold">{category?.name}</p>
+    <div className="w-full h-24 sm:h-32 rounded-xl bg-codematicWhite shadow-2xl flex flex-col items-center justify-center sm:gap-3 px-2 sm:w-1/4 hover:border-4 border-teal-600">
+      <p className="w-full text-center text-lg sm:text-2xl truncate font-semibold sm:font-bold">
+        {category?.name}
+      </p>
       <div className="w-full flex flex-row items-center justify-evenly gap-2">
-        {["Easy", "Medium", "Hard"].map((item, index) => {
+        {["easy", "medium", "hard"].map((item, index) => {
           return (
             <Button
               key={index}
@@ -38,7 +59,7 @@ export const Category = ({ category }) => {
           );
         })}
       </div>
-      {hasSelected && <Modal modalEventHandler={handleModalClick} />}
+      {state.hasSelected && <Modal modalEventHandler={handleModalClick} />}
     </div>
   );
 };

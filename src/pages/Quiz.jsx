@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/Button";
-import data from "../data/sample.json";
+import { CategoryService } from "../services/category.service";
+import { pushToArray } from "../utilities/arrays.utils";
+import { Error } from "./Error";
+import { Loading } from "./Loading";
 
 export const Quiz = () => {
   // state declaration
@@ -11,19 +14,68 @@ export const Quiz = () => {
     submit: false,
     totalScore: null,
   });
+  const [state, setState] = useState({
+    loading: false,
+    error: "",
+    data: [],
+  });
   const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(data.results.length).fill(null)
+    Array(state.data.length).fill(null)
   );
 
-  const { results } = data; // destructuring results from data
+  const results = state.data; // set results variable to state data
 
   const navigate = useNavigate(); // useNavigate hook
+  const location = useLocation(); // useLocation hook
 
-  // current question answers array used to create dynamic options
-  const currentQuestionAnswers = [
-    ...results[currentQuestionNumber]?.incorrect_answers,
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setState((prevState) => ({ ...prevState, loading: true }));
+        const response = await CategoryService.getCategory(location.state);
+        setState((prevState) => ({
+          ...prevState,
+          data: response.results,
+        }));
+        setState((prevState) => ({ ...prevState, loading: false }));
+      } catch (error) {
+        setState((prevState) => ({ ...prevState, loading: false }));
+        if (error.response) {
+          // server responding with a non-2xx status code
+          console.error("Server Error:", error.response.data);
+          console.error("Status Code:", error.response.status);
+          setState((prevState) => ({
+            ...prevState,
+            error:
+              "Oops! Failed to get Quiz questions. Please try again later!",
+          }));
+        } else if (error.request) {
+          // the request was made but no response
+          console.error("Request Error:", error.request);
+          setState((prevState) => ({
+            ...prevState,
+            error: "Oops! It seems the server is down. Please try again later!",
+          }));
+        } else {
+          // request didn't go at all
+          console.error("Error:", error.message);
+          setState((prevState) => ({
+            ...prevState,
+            error: "Oops! Connection error",
+          }));
+        }
+      }
+    };
+
+    getData();
+    // eslint-disable-next-line
+  }, []);
+
+  // create currentQuestionAnswers array for creating dynamic options
+  const currentQuestionAnswers = pushToArray(
     results[currentQuestionNumber]?.correct_answer,
-  ];
+    results[currentQuestionNumber]?.incorrect_answers || []
+  );
 
   // Previous and Next button event handler
   const handlePrevNextButtons = (str) => {
@@ -81,13 +133,23 @@ export const Quiz = () => {
     if (str === "Restart") window.location.reload();
   };
 
+  // render loading screen during API call
+  if (state.loading === true) {
+    return <Loading />;
+  }
+
+  // render error screen if error
+  if (state.error.length > 1) {
+    return <Error message={state.error} />;
+  }
+
   // component (Quiz page)
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-start p-6 gap-6">
+    <div className="w-screen h-screen flex flex-col items-center justify-start sm:justify-center p-6 gap-6 sm:px-60">
       <h1 className="text-4xl font-semibold capitalize text-center">
-        {results[0].category} quiz
+        {results[0]?.category} quiz
       </h1>
-      <form className="w-full flex flex-col items-start justify-start gap-6">
+      <form className="w-full flex font-normal sm:font-bold flex-col items-start justify-start gap-6">
         <div className="w-full flex flex-col items-start justify-start text-2xl">
           <p
             dangerouslySetInnerHTML={{
@@ -132,7 +194,7 @@ export const Quiz = () => {
           </span>
         </div>
       </form>
-      <div className="w-full flex flex-row items-center justify-center gap-2 fixed bottom-5 p-6">
+      <div className="w-full flex flex-row items-center justify-center gap-2 fixed bottom-5 p-6 sm:bottom-10 sm:px-60">
         {["Restart", "Submit"].map((item, index) => {
           return (
             <Button
@@ -174,18 +236,22 @@ export const Quiz = () => {
       {isOpen.submit && (
         <div className="fixed z-50 top-0 left-0 w-screen h-screen bg-[#00000080] flex flex-col items-center justify-center p-6 sm:p-12 backdrop-blur-md">
           <div className="relative w-full sm:w-1/3 px-12 py-12 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 text-xl">
-            <h1
-              onClick={() => setIsOpen(() => (isOpen.submit = false))}
-              className="absolute top-5 right-5 cursor-pointer"
-            >
-              ✕
-            </h1>
             {isOpen.totalScore !== null ? (
-              <h1 className="font-semibold text-3xl">
+              ""
+            ) : (
+              <h1
+                onClick={() => setIsOpen(() => (isOpen.submit = false))}
+                className="absolute top-5 right-5 cursor-pointer"
+              >
+                ✕
+              </h1>
+            )}
+            {isOpen.totalScore !== null ? (
+              <h1 className="font-bold text-3xl sm:text-4xl pb-2 sm:pb-4">
                 Your score is: {isOpen.totalScore}
               </h1>
             ) : (
-              <h1 className="font-semibold text-2xl">
+              <h1 className="font-bold text-3xl sm:text-4xl pb-2 sm:pb-4">
                 Are you sure you want to submit your answers?
               </h1>
             )}
@@ -193,12 +259,12 @@ export const Quiz = () => {
               {isOpen.totalScore !== null ? (
                 <Button
                   eventHandler={() => navigate("/quiz-category")}
-                  text="New Quiz"
+                  text="categories"
                 />
               ) : (
                 <Button
                   eventHandler={() => handleRestartSubmitConfirmation("Submit")}
-                  text="Confirm"
+                  text="confirm"
                 />
               )}
             </div>

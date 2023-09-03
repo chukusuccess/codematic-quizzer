@@ -4,14 +4,14 @@ import {
   Splash,
   SPLASH_TEST_ID,
   SPLASHTEXT_TEST_ID,
-} from "../components/Splash-Screen/Splash";
-import { SplashText } from "../components/Splash-Screen/SplashText";
+} from "../components/Splash-Animation/Splash";
+import { SplashText } from "../components/Splash-Animation/SplashText";
 import {
   Onboarding,
   BUTTON_TEST_ID,
   SUBTEXT_TEST_ID,
   HERO_TEST_ID,
-} from "../components/Splash-Screen/Onboarding";
+} from "../components/Splash-Animation/Onboarding";
 
 // mocking useNavigate Hook.
 const mockedUsedNavigate = jest.fn();

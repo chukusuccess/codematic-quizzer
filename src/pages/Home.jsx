@@ -1,6 +1,6 @@
 import React from "react";
-import { Splash } from "../components/Splash-Screen/Splash";
-import { Onboarding } from "../components/Splash-Screen/Onboarding";
+import { Splash } from "../components/Splash-Animation/Splash";
+import { Onboarding } from "../components/Splash-Animation/Onboarding";
 
 // exporting unit test-id for Jest Testing Library
 export const HOME_TEST_ID = "HOME_TEST_ID";

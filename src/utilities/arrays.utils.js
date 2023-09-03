@@ -30,18 +30,19 @@ export const shuffleArray = (array) => {
   return shuffledArray;
 };
 ///////////////////////////////////////////////////////////////////
-/** Adds an item to an array
+/** Adds a value or an array of values to an array
  *
- * @param {truthy} value - a truthy value (primitive or non-primitive)
+ * @param {value|array} item - a value or an array of values
  * @param {array} array - an array
- * @returns [...array, value]
+ * @returns [...array, ...item]
  */
-export const pushToArray = (value, array) => {
-  // Create a copy of the original array to avoid modifying it directly.
-  const populatedArray = [...array]; // (TO-DO): Refactor to array.with()
-
-  if (Boolean(value) !== false) {
-    populatedArray.push(value);
-    return populatedArray;
-  } else console.error("provide a valid value");
+export const pushToArray = (item, array) => {
+  if (Array.isArray(item)) {
+    return [...array, ...item];
+  } else if (item) {
+    return [...array, item];
+  } else {
+    console.error("Provide a valid value or array of values.");
+    return array;
+  }
 };

@@ -1,0 +1,4 @@
+// .babelrc configuration for jest
+{
+  "presets": ["@babel/preset-env"]
+}

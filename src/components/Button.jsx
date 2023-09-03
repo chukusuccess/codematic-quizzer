@@ -14,7 +14,7 @@ export const Button = ({ height, text, eventHandler, textSize }) => {
   return (
     <button
       onClick={eventHandler}
-      className={`w-full bg-black text-white rounded-full ${height} ${textSize} font-bold border-4 border-black active:bg-codematicWhite active:text-black hover:bg-codematicWhite hover:text-black`}
+      className={`w-full capitalize bg-black text-white rounded-full ${height} ${textSize} font-bold border-4 border-black active:bg-codematicWhite active:text-black hover:bg-codematicWhite hover:text-black`}
     >
       {text}
     </button>
