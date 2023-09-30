@@ -26,8 +26,12 @@ export const Category = ({ category }) => {
 
   // click event within modal handler
   const handleModalClick = (value, amount) => {
-    if (!amount && value === "close")
-      setState((prevState) => ({ ...prevState, hasSelected: false }));
+    if (value === "close")
+      setState((prevState) => ({
+        ...prevState,
+        hasSelected: false,
+        amount: 1,
+      }));
 
     // we pass our options through Navigate Options
     if (value !== "close" && !Number.isNaN(amount)) {

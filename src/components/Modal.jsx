@@ -10,10 +10,17 @@ export const Modal = ({ modalEventHandler }) => {
     setAmount(e.target.value);
   };
 
+  const dismissModal = (e) => {
+    if (!e.target.closest(".modal")) modalEventHandler("close", null);
+  };
+
   // component (modal)
   return (
-    <div className="fixed z-50 top-0 left-0 w-screen h-screen bg-[#00000080] flex flex-col items-center justify-center p-6 sm:p-12 backdrop-blur-md">
-      <div className="relative w-full sm:w-1/3 px-12 py-12 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 font-semibold text-2xl sm:font-bold sm:text-3xl">
+    <div
+      className="fixed z-50 top-0 left-0 w-screen h-screen bg-[#00000080] flex flex-col items-center justify-center p-6 sm:p-12 backdrop-blur-md"
+      onClick={dismissModal}
+    >
+      <div className="relative w-full sm:w-1/3 px-12 py-12 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 font-semibold text-2xl sm:font-bold sm:text-3xl modal">
         <h1
           onClick={() => modalEventHandler("close", amount)}
           className="absolute top-5 right-5 cursor-pointer"

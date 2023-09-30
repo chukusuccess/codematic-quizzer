@@ -41,8 +41,5 @@ export const pushToArray = (item, array) => {
     return [...array, ...item];
   } else if (item) {
     return [...array, item];
-  } else {
-    console.error("Provide a valid value or array of values.");
-    return array;
   }
 };

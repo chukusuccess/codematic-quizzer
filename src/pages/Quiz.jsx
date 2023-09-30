@@ -151,7 +151,9 @@ export const Quiz = () => {
       </h1>
       <form className="w-full flex font-normal sm:font-bold flex-col items-start justify-start gap-6">
         <div className="w-full flex flex-col items-start justify-start text-2xl">
-          <p className="font-bold">Question: {currentQuestionNumber + 1}</p>
+          <p className="font-bold sm:font-bold">
+            Question: {currentQuestionNumber + 1}
+          </p>
           <p
             dangerouslySetInnerHTML={{
               __html: results[currentQuestionNumber]?.question,
@@ -249,7 +251,7 @@ export const Quiz = () => {
             )}
             {isOpen.totalScore !== null ? (
               <h1 className="font-bold text-3xl sm:text-4xl pb-2 sm:pb-4">
-                Your score is: {isOpen.totalScore}
+                Your score is: {isOpen.totalScore} / {results.length}
               </h1>
             ) : (
               <h1 className="font-bold text-3xl sm:text-4xl pb-2 sm:pb-4">
@@ -260,7 +262,7 @@ export const Quiz = () => {
               {isOpen.totalScore !== null ? (
                 <Button
                   eventHandler={() => navigate("/quiz-category")}
-                  text="categories"
+                  text="new quiz"
                 />
               ) : (
                 <Button
