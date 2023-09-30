@@ -145,7 +145,7 @@ export const Quiz = () => {
 
   // component (Quiz page)
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-start sm:justify-center p-6 gap-6 sm:px-60">
+    <div className="w-screen h-screen flex flex-col items-center justify-start sm:justify-center p-6 gap-6 lg:px-60 md:px-20">
       <h1 className="text-4xl font-semibold capitalize text-center">
         {results[0]?.category} quiz
       </h1>
@@ -211,7 +211,7 @@ export const Quiz = () => {
       </div>
       {isOpen.restart && (
         <div className="fixed z-50 top-0 left-0 w-screen h-screen bg-[#00000080] flex flex-col items-center justify-center p-6 sm:p-12 backdrop-blur-md">
-          <div className="relative w-full sm:w-1/3 px-12 py-12 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 text-xl">
+          <div className="relative w-full lg:w-1/3 md:w-1/2 p-10 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 text-xl">
             <h1
               onClick={() =>
                 setIsOpen((prevState) => ({
@@ -238,12 +238,18 @@ export const Quiz = () => {
       )}{" "}
       {isOpen.submit && (
         <div className="fixed z-50 top-0 left-0 w-screen h-screen bg-[#00000080] flex flex-col items-center justify-center p-6 sm:p-12 backdrop-blur-md">
-          <div className="relative w-full sm:w-1/3 px-12 py-12 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 text-xl">
+          <div className="relative w-full lg:w-1/3 md:w-1/2 p-10 bg-codematicWhite rounded-2xl flex flex-col items-center justify-center gap-2 text-xl">
             {isOpen.totalScore !== null ? (
               ""
             ) : (
               <h1
-                onClick={() => setIsOpen(() => (isOpen.submit = false))}
+                onClick={() =>
+                  setIsOpen((prevState) => ({
+                    ...prevState,
+                    submit: false,
+                    totalScore: null,
+                  }))
+                }
                 className="absolute top-5 right-5 cursor-pointer"
               >
                 ✕

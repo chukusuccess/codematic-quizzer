@@ -46,7 +46,7 @@ export const Category = ({ category }) => {
   };
 
   return (
-    <div className="w-full h-24 sm:h-32 rounded-xl bg-codematicWhite shadow-2xl flex flex-col items-center justify-center sm:gap-3 px-2 sm:w-1/4 hover:border-4 border-teal-600">
+    <div className="w-full h-24 sm:h-32 rounded-xl bg-codematicWhite shadow-2xl flex flex-col items-center justify-center sm:gap-3 px-2 lg:w-1/4 md:w-1/3 hover:border-4 border-teal-600">
       <p className="w-full text-center text-lg sm:text-2xl truncate font-semibold sm:font-bold">
         {category?.name}
       </p>

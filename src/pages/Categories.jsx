@@ -85,7 +85,7 @@ export const Categories = () => {
           Each category offers 3 levels of difficulty.
         </p>
       </div>
-      <div className="py-32 sm:py-40 w-full flex flex-col gap-5 p-6 sm:p-12 sm:flex-row sm:flex-wrap items-center justify-center">
+      <div className="py-32 sm:py-40 w-full flex flex-col gap-5 px-6 lg:px-12 md:px-6 sm:flex-row sm:flex-wrap items-center justify-center">
         {state.data.map((item, _index) => {
           return <Category key={item.id} category={item} />;
         })}
